@@ -1,0 +1,11 @@
+name: SpoutBonus
+main: com.moosemanstudios.SpoutBonus.SpoutBonus
+author: moose517
+description: give a daily bonus for using spoutcraft client
+version: 1.1
+commands:
+    spoutbonus:
+        description: all spoutbonus related commands
+permissions:
+    spoutbonus.admin:
+        description: all spoutbonus admin related permissions
