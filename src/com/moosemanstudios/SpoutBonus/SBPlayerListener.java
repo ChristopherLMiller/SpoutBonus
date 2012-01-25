@@ -6,19 +6,20 @@ import java.util.HashMap;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.event.spout.SpoutCraftEnableEvent;
-import org.getspout.spoutapi.event.spout.SpoutListener;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SBPlayerListener extends SpoutListener {
+public class SBPlayerListener implements Listener {
 	private SpoutBonus plugin;
 	
 	SBPlayerListener(SpoutBonus instance) {
 		plugin = instance;
 	}
 	
-	@Override
+	@EventHandler
 	public void onSpoutCraftEnable(SpoutCraftEnableEvent event) {
 		String date = new SimpleDateFormat("yy/MM/dd").format(Calendar.getInstance().getTime());
 		SpoutPlayer splayer = event.getPlayer();
