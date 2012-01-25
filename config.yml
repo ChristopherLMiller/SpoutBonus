@@ -1,13 +1,19 @@
-## SpoutBonus - Give players a daily bonus for using Spoutcraft
-#
-# enable more verbose logging to console
+##########################################################
+##                      SpoutBonus                      ##
+##  config values:                                      ##
+##    debug: true/false display debug info in console.  ##
+##    stats: stats tracking, only reports version of    ##
+##           plugin, for statistical purpose only.      ##
+##    economy-bonus: give players economy bonus         ##
+##    economy-amount: amount to give if economy enabled ##
+##    item-bonus: give item based bonus.                ##
+##    item-amount: how many of item to give.            ##
+##    item-type: what item to give the player.          ##
+##########################################################
 debug: false
-#
-# economy bonus
+stats: true
 economy-bonus: false
 economy-amount: 1
-#
-# item bonus
 item-bonus: true
 item-amount: 1
 item-type: 264

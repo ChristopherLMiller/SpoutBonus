@@ -29,6 +29,7 @@ public class SpoutBonus extends JavaPlugin {
 	Boolean vaultFound = false;					// if vault is found on the system
 	Boolean economyFound = false;				// if economy plugin is found
 	DevilStats stats;							// stats tracking
+	Boolean useStats;							// whether to enable stats tracking
 	
 	// vault stuff
 	public static Economy economy = null;
@@ -69,12 +70,14 @@ public class SpoutBonus extends JavaPlugin {
 		pm = this.getServer().getPluginManager();
 		pm.registerEvents(playerlistener, this);
 		
-		//7) startup the stats tracking
-		try {
-			stats = new DevilStats(this);
-			stats.startup();
-		} catch (Exception e) {
-			e.printStackTrace();
+		//7) startup the stats tracking, if player allows it
+		if (useStats) {
+			try {
+				stats = new DevilStats(this);
+				stats.startup();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		// lastly inform that plugin is now enabled
@@ -129,8 +132,8 @@ public class SpoutBonus extends JavaPlugin {
 	}
 	
 	private void setupConfig() {
-		getConfig().options().copyDefaults(true);
 		getConfig().options().copyHeader(true);
+		getConfig().options().copyDefaults(true);
 		saveConfig();
 		log.info("[SpoutBonus] config created");
 	}
@@ -142,6 +145,8 @@ public class SpoutBonus extends JavaPlugin {
 		if (debug) {
 			log.info("[SpoutBonus] debug mode enabled");
 		}
+		
+		useStats = getConfig().getBoolean("stats");
 		
 		// see if vault was found
 		if (vaultFound) {
