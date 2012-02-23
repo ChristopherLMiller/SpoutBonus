@@ -13,7 +13,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.smilingdevil.devilstats.api.DevilStats;
 
 public class SpoutBonus extends JavaPlugin {
 	Logger log = Logger.getLogger("minecraft");	// console
@@ -28,8 +27,6 @@ public class SpoutBonus extends JavaPlugin {
 	int itemType;								// item type for bonus
 	Boolean vaultFound = false;					// if vault is found on the system
 	Boolean economyFound = false;				// if economy plugin is found
-	DevilStats stats;							// stats tracking
-	Boolean useStats;							// whether to enable stats tracking
 	
 	// vault stuff
 	public static Economy economy = null;
@@ -70,15 +67,6 @@ public class SpoutBonus extends JavaPlugin {
 		pm = this.getServer().getPluginManager();
 		pm.registerEvents(playerlistener, this);
 		
-		//7) startup the stats tracking, if player allows it
-		if (useStats) {
-			try {
-				stats = new DevilStats(this);
-				stats.startup();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 		
 		// lastly inform that plugin is now enabled
 		pdfFile = this.getDescription();
@@ -87,10 +75,6 @@ public class SpoutBonus extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
-		if (stats != null) {
-			stats.shutdown();
-		}
-		
 		log.info("[SpoutBonus] is now disabled");
 		
 	}
@@ -145,8 +129,6 @@ public class SpoutBonus extends JavaPlugin {
 		if (debug) {
 			log.info("[SpoutBonus] debug mode enabled");
 		}
-		
-		useStats = getConfig().getBoolean("stats");
 		
 		// see if vault was found
 		if (vaultFound) {
