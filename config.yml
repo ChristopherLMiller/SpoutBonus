@@ -11,7 +11,6 @@
 ##    item-type: what item to give the player.          ##
 ##########################################################
 debug: false
-stats: true
 economy-bonus: false
 economy-amount: 1
 item-bonus: true
