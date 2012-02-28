@@ -35,7 +35,7 @@ public class SBPlayerListener implements Listener {
 		// see if the last login was the same as today's date
 		if (!lastLogin.equalsIgnoreCase(date)) {
 			// player hasn't logged in yet today with spoutcraft, give them a bonus
-			splayer.sendMessage(ChatColor.AQUA + "You have recieved a bonus for using spoutcraft today!");
+			splayer.sendMessage(ChatColor.AQUA + "You have received a bonus for using spoutcraft today!");
 			
 			if (plugin.economyMode) {
 				SpoutBonus.economy.depositPlayer(event.getPlayer().getName(), plugin.economyAmount);
@@ -63,7 +63,7 @@ public class SBPlayerListener implements Listener {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
 				// make sure we don't tell ourselves about it
 				if (!splayer.getName().equalsIgnoreCase(player.getName())) {
-					player.sendMessage(ChatColor.AQUA + splayer.getName() + " has recieved a bonus for using spoutcraft client!");
+					player.sendMessage(ChatColor.AQUA + splayer.getName() + " has received a bonus for using spoutcraft client!");
 				}
 			}
 		}
