@@ -38,8 +38,12 @@ public class SBPlayerListener implements Listener {
 			splayer.sendMessage(ChatColor.AQUA + "You have received a bonus for using spoutcraft today!");
 			
 			if (plugin.economyMode) {
-				SpoutBonus.economy.depositPlayer(event.getPlayer().getName(), plugin.economyAmount);
-				splayer.sendMessage(ChatColor.AQUA + Double.toString(plugin.economyAmount) + " has been credited to you");
+				if (SpoutBonus.economy.depositPlayer(event.getPlayer().getName(), plugin.economyAmount).transactionSuccess()) {
+					splayer.sendMessage(ChatColor.AQUA + Double.toString(plugin.economyAmount) + " has been credited to you");
+				} else {
+					splayer.sendMessage(ChatColor.RED + "SOMETHING FAILED");
+				}
+
 			}
 			if (plugin.itemMode) {
 				HashMap<Integer, ItemStack> leftOver = splayer.getInventory().addItem(new ItemStack(plugin.itemType, plugin.itemAmount));
@@ -56,8 +60,9 @@ public class SBPlayerListener implements Listener {
 			}
 			
 			// at this point update the date in the config file with todays so they can't claim multiple times
-			plugin.getConfig().set(splayer.getName(), date);
-			plugin.saveConfig();
+			// TODO: uncomment
+			//plugin.getConfig().set(splayer.getName(), date);
+			//plugin.saveConfig();
 			
 			// tell all the other players they received it
 			for (Player player : plugin.getServer().getOnlinePlayers()) {

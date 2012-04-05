@@ -1,6 +1,5 @@
 package com.moosemanstudios.SpoutBonus;
 
-import java.io.File;
 import java.util.logging.Logger;
 
 import net.milkbowl.vault.economy.Economy;
@@ -42,10 +41,7 @@ public class SpoutBonus extends JavaPlugin {
 		}
 		
 		// 2) go ahead and create config file if it doesn't exist
-		File configFile = new File(getDataFolder() + File.separator + "config.yml");
-		if (!configFile.exists()) {
-			setupConfig();
-		}
+		setupConfig();
 		
 		// 3) see if Vault is found, if not we can't enable economy mode
 		if (getServer().getPluginManager().getPlugin("Vault") == null) {
@@ -117,8 +113,38 @@ public class SpoutBonus extends JavaPlugin {
 	}
 	
 	private void setupConfig() {
-		getConfig().options().copyHeader(true);
-		getConfig().options().copyDefaults(true);
+		// fields: debug: false
+		//			economy-bonus: true
+		//			economy-amount: 100
+		//			item-bonus: true
+		//			item-amount: 1
+		//			item-type: 264
+		
+		if (!this.getConfig().contains("debug")) {
+			this.getConfig().set("debug", true);
+		}
+		
+		if (!getConfig().contains("economy")) {
+			getConfig().createSection("economy");
+			if (!getConfig().getConfigurationSection("economy").contains("enabled")) {
+				getConfig().getConfigurationSection("economy").set("enabled", true);
+			}
+			if (!getConfig().getConfigurationSection("economy").contains("amount")) {
+				getConfig().getConfigurationSection("economy").set("amount", 100);
+			}
+		}
+		if (!getConfig().contains("item")) {
+			getConfig().createSection("item");
+			if (!getConfig().getConfigurationSection("item").contains("enabled")) {
+				getConfig().getConfigurationSection("item").set("enabled", true);
+			}
+			if (!getConfig().getConfigurationSection("item").contains("item-id")) {
+				getConfig().getConfigurationSection("item").set("item-id", 264);
+			}
+			if (!getConfig().getConfigurationSection("item").contains("amount")) {
+				getConfig().getConfigurationSection("item").set("amount", 1);
+			}
+		}
 		saveConfig();
 		log.info("[SpoutBonus] config created");
 	}
@@ -126,43 +152,41 @@ public class SpoutBonus extends JavaPlugin {
 	private void loadConfigFile() {
 		reloadConfig();
 		
+		// check for debugging first
 		debug = getConfig().getBoolean("debug");
 		if (debug) {
 			log.info("[SpoutBonus] debug mode enabled");
 		}
 		
-		// see if vault was found
 		if (vaultFound) {
-			// yup, so see if they have economy mode enabled
-			economyMode = getConfig().getBoolean("economy-bonus");
+			// check economy mode
+			economyMode = getConfig().getConfigurationSection("economy").getBoolean("enabled");
+			
 			if (economyMode) {
-				// economy mode enabled, now see if they an economy plugin
+				// check if an economy plugin was even enabled
 				if (economyFound) {
-					// economy plugin found, go ahead and load the values
-					economyAmount = getConfig().getDouble("economy-bonus");
-					log.info("[SpoutBonus] Economy mode enabled");
+					economyAmount = getConfig().getConfigurationSection("economy").getDouble("amount");
+					log.info("[SpoutBonus] Economy bonus enabled");
+					log.info("[SpoutBonus] Economy amount: " + Double.toString(economyAmount));
 				} else {
-					// no economy plugin found, alert user
 					economyMode = false;
 					economyAmount = 0;
-					log.info("[SpoutBonus] Economy mode specified but no economy plugin found, reverting to item mode if enabled");
+					log.info("[SpoutBonus] No economy plugin detected.  Disabling economy bonus");
 				}
 			}
 		} else {
-			// see if they wanted economy mode, and alert if so
-			if (getConfig().getBoolean("economy-bonus")) {
-				log.info("[SpoutBonus] Economy mode specified but vault wasn't found, reverting to item mode if enabled");
+			if (getConfig().getConfigurationSection("economy").getBoolean("enabled")) {
 				economyMode = false;
 				economyAmount = 0;
+				log.info("[SpoutBonus] Vault not found cannot use economy bonus");
 			}
 		}
 		
-		// load up item mode info
-		itemMode = getConfig().getBoolean("item-bonus");
-		if (itemMode) {
-			itemType = getConfig().getInt("item-type");
-			itemAmount = getConfig().getInt("item-amount");
+		if (getConfig().getConfigurationSection("item").getBoolean("enabled")) {
+			itemAmount = getConfig().getConfigurationSection("item").getInt("amount");
+			itemType = getConfig().getConfigurationSection("item").getInt("item-id");
 			log.info("[SpoutBonus] Item mode enabled");
+			log.info("[SpoutBonus] Item-ID: " + Integer.toString(itemType) + "; Amount: " + Integer.toString(itemAmount));
 		}
 		
 		log.info("[SpoutBonus] config loaded");
