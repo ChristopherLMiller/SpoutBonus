@@ -60,9 +60,8 @@ public class SBPlayerListener implements Listener {
 			}
 			
 			// at this point update the date in the config file with todays so they can't claim multiple times
-			// TODO: uncomment
-			//plugin.getConfig().set(splayer.getName(), date);
-			//plugin.saveConfig();
+			plugin.getConfig().set(splayer.getName(), date);
+			plugin.saveConfig();
 			
 			// tell all the other players they received it
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
