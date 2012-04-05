@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.moosemanstudios</groupId>
+  <artifactId>spoutbonus</artifactId>
+  <version>1.2.3-SNAPSHOT</version>
+  <name>SpoutBonusNew</name>
+  <url>http://moosemanstudios.com</url>
+  <description>Give daily bonus for using spoutcraft client</description>
+  
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <scm>
+  	<developerConnection>scm:git:git@github.com:moose51789/SpoutBonus.git</developerConnection>
+  	<connection>scm:git:git://github.com/moose51789/SpoutBonus.bit</connection>
+  	<url>https://github.com/moose51789/SpoutBonus/tree/master</url>
+  </scm>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>org.bukkit</groupId>
+  		<artifactId>bukkit</artifactId>
+  		<version>1.2.5-R1.0</version>
+  		<type>jar</type>
+  		<scope>provided</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.getspout</groupId>
+  		<artifactId>spoutplugin</artifactId>
+  		<version>dev-SNAPSHOT</version>
+  		<type>jar</type>
+  		<scope>provided</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>net.milkbowl</groupId>
+  		<artifactId>vault</artifactId>
+  		<version>1.2.13-b148</version>
+  		<scope>system</scope>
+  		<systemPath>${project.basedir}/Vault.jar</systemPath>
+  	</dependency>
+  </dependencies>
+  
+  <build>
+  	<defaultGoal>clean install</defaultGoal>
+  	<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+  	<resources>
+  		<resource>
+  			<targetPath>.</targetPath>
+  			<directory>${basedir}/src/main/resources</directory>
+  			<filtering>true</filtering>
+  			<includes>
+  				<include>plugin.yml</include>
+  				<include>config.yml</include>
+  			</includes>
+  		</resource>
+  	</resources>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-compiler-plugin</artifactId>
+  			<version>2.3.2</version>
+  		</plugin>
+  		<plugin>
+  			<groupId>or.apache.maven.plugins</groupId>
+  			<artifactId>maven-jar-plugin</artifactId>
+  			<version>2.3.2</version>
+  		</plugin>
+  	</plugins>
+  </build>
+ 
+  <repositories>
+  	<repository>
+  		<id>Bukkit</id>
+  		<url>http://repo.bukkit.org/content/groups/public/</url>
+  	</repository>
+  	<repository>
+  		<id>Spout</id>
+  		<url>http://nexus.spout.org/content/groups/public</url>
+  	</repository>
+  </repositories>
+</project>
