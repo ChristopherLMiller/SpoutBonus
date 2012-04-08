@@ -1,8 +1,8 @@
 name: SpoutBonus
-main: com.moosemanstudios.SpoutBonus.SpoutBonusBukkit
-author: moose517
+main: com.moosemanstudios.SpoutBonus.SpoutBonusSpout
+version ${version}
 description: Daily reward for using spoutcraft client
-version: ${version}
+author: moose517
 website: http://moosemanstudios.com/programming
 commands:
     spoutbonus:
@@ -10,4 +10,3 @@ commands:
 permissions:
     spoutbonus.admin:
         description: All SpoutBonus admin related permissions
-        

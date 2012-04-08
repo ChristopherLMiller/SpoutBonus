@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.moosemanstudios</groupId>
   <artifactId>spoutbonus</artifactId>
-  <version>1.2.3-SNAPSHOT</version>
+  <version>1.2.4</version>
   <name>SpoutBonusNew</name>
   <url>http://moosemanstudios.com</url>
   <description>Give daily bonus for using spoutcraft client</description>
@@ -33,6 +33,13 @@
   		<scope>provided</scope>
   	</dependency>
   	<dependency>
+  		<groupId>org.getspout</groupId>
+  		<artifactId>spout</artifactId>
+  		<version>dev-SNAPSHOT</version>
+  		<type>jar</type>
+  		<scope>provided</scope>
+  	</dependency>
+  	<dependency>
   		<groupId>net.milkbowl</groupId>
   		<artifactId>vault</artifactId>
   		<version>1.2.13-b148</version>
@@ -51,6 +58,7 @@
   			<filtering>true</filtering>
   			<includes>
   				<include>plugin.yml</include>
+  				<include>spoutplugin.yml</include>
   			</includes>
   		</resource>
   	</resources>
