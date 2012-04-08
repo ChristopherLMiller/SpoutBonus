@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.moosemanstudios</groupId>
   <artifactId>spoutbonus</artifactId>
-  <version>1.2.4</version>
+  <version>1.2.5-SNAPSHOT</version>
   <name>SpoutBonusNew</name>
   <url>http://moosemanstudios.com</url>
   <description>Give daily bonus for using spoutcraft client</description>
