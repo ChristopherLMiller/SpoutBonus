@@ -195,6 +195,7 @@ public class SpoutBonusBukkit extends JavaPlugin {
 			log.info("[SpoutBonus] Item mode enabled");
 			log.info("[SpoutBonus] Item-ID: " + Integer.toString(itemType) + "; Amount: " + Integer.toString(itemAmount));
 		}
+
 		
 		log.info("[SpoutBonus] config loaded");
 	}

@@ -18,11 +18,13 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SBPlayerListenerBukkit implements Listener {
 	private SpoutBonusBukkit plugin;
-	private FileConfiguration lastPlayed = null;
-	private File lastPlayedFile = null;
+	public FileConfiguration lastPlayed = null;
+	public File lastPlayedFile = null;
+
 	
 	SBPlayerListenerBukkit(SpoutBonusBukkit instance) {
 		plugin = instance;
+		
 		
 		if (lastPlayedFile == null) {
 			lastPlayedFile = new File(plugin.getDataFolder(), "lastplayed.yml");
@@ -37,10 +39,10 @@ public class SBPlayerListenerBukkit implements Listener {
 		String lastLogin;
 		
 		// see if they have ever logged in before
-		if (!plugin.getConfig().contains(splayer.getName())) {
+		if (!lastPlayed.contains(splayer.getName())) {
 			lastLogin = "00/00/00";
 		} else {
-			lastLogin = plugin.getConfig().getString(splayer.getName());
+			lastLogin = lastPlayed.getString(splayer.getName());
 		}
 		
 		// see if the last login was the same as today's date
