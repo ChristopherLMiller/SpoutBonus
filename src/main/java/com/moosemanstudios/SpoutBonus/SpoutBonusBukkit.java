@@ -1,6 +1,7 @@
 package com.moosemanstudios.SpoutBonus;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import net.milkbowl.vault.economy.Economy;
@@ -12,6 +13,8 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.moosemanstudios.SpoutBonus.Metrics.Graph;
 
 
 
@@ -28,6 +31,7 @@ public class SpoutBonusBukkit extends JavaPlugin {
 	int itemType;								// item type for bonus
 	Boolean vaultFound = false;					// if vault is found on the system
 	Boolean economyFound = false;				// if economy plugin is found
+	public ArrayList<String> spoutPlayers = new ArrayList<String>();
 	
 	// vault stuff
 	public static Economy economy = null;
@@ -68,6 +72,16 @@ public class SpoutBonusBukkit extends JavaPlugin {
 		// 7) enable metrics
 		try {
 			Metrics metrics = new Metrics(this);
+			
+			Graph graph = metrics.createGraph("Number of Spoutcraft players");
+			graph.addPlotter(new Metrics.Plotter("players") {
+				@Override
+				public int getValue() {
+					int size = spoutPlayers.size();
+					spoutPlayers.clear();
+					return size;
+				}
+			});
 			metrics.start();
 		} catch (IOException e) {
 			e.printStackTrace();

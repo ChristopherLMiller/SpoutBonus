@@ -1,13 +1,20 @@
 package com.moosemanstudios.SpoutBonus;
 
+import java.io.File;
 import java.util.logging.Logger;
 
-import net.milkbowl.vault.economy.Economy;
+import org.spout.api.Engine;
+import org.spout.api.event.EventManager;
+import org.spout.api.plugin.CommonPlugin;
+import org.spout.api.plugin.PluginDescriptionFile;
+import org.spout.api.util.config.Configuration;
+import org.spout.api.util.config.yaml.YamlConfiguration;
+import org.spout.api.command.CommandRegistrationsFactory;
+import org.spout.api.command.annotated.AnnotatedCommandRegistrationFactory;
+import org.spout.api.command.annotated.SimpleAnnotatedCommandExecutorFactory;
+import org.spout.api.command.annotated.SimpleInjector;
 
-import org.getspout.api.event.EventManager;
-import org.getspout.api.plugin.CommonPlugin;
-import org.getspout.api.plugin.PluginDescriptionFile;
-
+@SuppressWarnings("serial")
 public class SpoutBonusSpout extends CommonPlugin {
 	Logger log = Logger.getLogger("minecraft");
 	String prefix = "[SpoutBonus] ";
@@ -15,35 +22,19 @@ public class SpoutBonusSpout extends CommonPlugin {
 	EventManager em = null;
 	SBPlayerListenerSpout playerlistener = null;
 	Boolean debug = true;
-	Boolean economyMode = false;
-	double economyAmount;
 	Boolean itemMode = false;
 	int itemAmount;
 	int itemType;
-	Boolean vaultFound = false;
-	Boolean economyFound = false;
-	
-	// vault stuff
-	// TODO: can't do yet
-	public static Economy economy = null;
 	
 	public void onDisable() {
 		log.info(prefix + "is now disabled!");
-		
 	}
 	
 	public void onEnable() {
+		
+		Engine game = getGame();
 		// create the config file
 		setupConfig();
-		
-		// See if vault is found, if not we can't enable economy mode
-		if (getGame().getPluginManager().getPlugin("Vault") == null) {
-			// vault isn't found, can't use economy mode
-			vaultFound = false;
-		} else {
-			vaultFound = true;
-			economyFound = setupEconomy();
-		}
 		
 		// load config
 		loadConfigFile();
@@ -64,24 +55,24 @@ public class SpoutBonusSpout extends CommonPlugin {
 			e.printStackTrace();
 		}*/
 		
+		// register command executor
+		CommandRegistrationsFactory<Class<?>> commandRegFactory = new AnnotatedCommandRegistrationFactory(new SimpleInjector(this), new SimpleAnnotatedCommandExecutorFactory());
+		game.getRootCommand().addSubCommands(game, SpoutCommandExecutorSpout.class, commandRegFactory);
+		
 		// finally inform that plugin is enabled
 		pdfFile = this.getDescription();
 		log.info(prefix + "version " + pdfFile.getVersion() + " is now enabled");
 		
 	}
 
-	private Boolean setupEconomy() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private void loadConfigFile() {
+	public void loadConfigFile() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void setupConfig() {
-		// TODO Auto-generated method stub
+	public void setupConfig() {
+		@SuppressWarnings("unused")
+		Configuration config = new YamlConfiguration(new File(this.getDataFolder() + File.separator + "config.yml"));
 		
 	}
 	

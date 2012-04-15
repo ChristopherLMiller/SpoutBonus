@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+
 import org.getspout.spoutapi.event.spout.SpoutCraftEnableEvent;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -20,11 +21,9 @@ public class SBPlayerListenerBukkit implements Listener {
 	private SpoutBonusBukkit plugin;
 	public FileConfiguration lastPlayed = null;
 	public File lastPlayedFile = null;
-
 	
 	SBPlayerListenerBukkit(SpoutBonusBukkit instance) {
 		plugin = instance;
-		
 		
 		if (lastPlayedFile == null) {
 			lastPlayedFile = new File(plugin.getDataFolder(), "lastplayed.yml");
@@ -37,6 +36,10 @@ public class SBPlayerListenerBukkit implements Listener {
 		String date = new SimpleDateFormat("yy/MM/dd").format(Calendar.getInstance().getTime());
 		SpoutPlayer splayer = event.getPlayer();
 		String lastLogin;
+		
+		if (!plugin.spoutPlayers.contains(event.getPlayer().getName())) {
+			plugin.spoutPlayers.add(event.getPlayer().getName());
+		}
 		
 		// see if they have ever logged in before
 		if (!lastPlayed.contains(splayer.getName())) {

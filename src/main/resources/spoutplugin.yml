@@ -1,8 +1,9 @@
-name: SpoutBonus
+name: MooseBonus
 main: com.moosemanstudios.SpoutBonus.SpoutBonusSpout
-version ${version}
+version: ${version}
 description: Daily reward for using spoutcraft client
 author: moose517
+platform: SERVER
 website: http://moosemanstudios.com/programming
 commands:
     spoutbonus:

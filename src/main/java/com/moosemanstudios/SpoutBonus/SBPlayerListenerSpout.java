@@ -1,6 +1,6 @@
 package com.moosemanstudios.SpoutBonus;
 
-import org.getspout.api.event.Listener;
+import org.spout.api.event.Listener;
 
 public class SBPlayerListenerSpout implements Listener{
 	@SuppressWarnings("unused")
