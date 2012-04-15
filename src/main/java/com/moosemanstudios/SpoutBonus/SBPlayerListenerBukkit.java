@@ -37,9 +37,7 @@ public class SBPlayerListenerBukkit implements Listener {
 		SpoutPlayer splayer = event.getPlayer();
 		String lastLogin;
 		
-		if (!plugin.spoutPlayers.contains(event.getPlayer().getName())) {
-			plugin.spoutPlayers.add(event.getPlayer().getName());
-		}
+		plugin.spoutPlayers.add(event.getPlayer().getName());
 		
 		// see if they have ever logged in before
 		if (!lastPlayed.contains(splayer.getName())) {

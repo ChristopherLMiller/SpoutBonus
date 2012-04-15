@@ -1,7 +1,8 @@
 package com.moosemanstudios.SpoutBonus;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import net.milkbowl.vault.economy.Economy;
@@ -13,6 +14,8 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 import com.moosemanstudios.SpoutBonus.Metrics.Graph;
 
@@ -31,7 +34,7 @@ public class SpoutBonusBukkit extends JavaPlugin {
 	int itemType;								// item type for bonus
 	Boolean vaultFound = false;					// if vault is found on the system
 	Boolean economyFound = false;				// if economy plugin is found
-	public ArrayList<String> spoutPlayers = new ArrayList<String>();
+	public Set<String> spoutPlayers = new HashSet<String>();
 	
 	// vault stuff
 	public static Economy economy = null;
@@ -75,11 +78,28 @@ public class SpoutBonusBukkit extends JavaPlugin {
 			
 			Graph graph = metrics.createGraph("Number of Spoutcraft players");
 			graph.addPlotter(new Metrics.Plotter("players") {
+				
 				@Override
 				public int getValue() {
 					int size = spoutPlayers.size();
-					spoutPlayers.clear();
 					return size;
+				}
+				
+				@Override
+				public void reset() {
+					// get list of all players online ATM
+					SpoutPlayer[] players = SpoutManager.getOnlinePlayers();
+					
+					// clear the list, we will manually readd them in a sec
+					spoutPlayers.clear();
+					
+					// loop through and see if the player has spoutcraft enabled, if so add em back
+					for(SpoutPlayer player : players) {
+						if (player.isSpoutCraftEnabled()) {
+							spoutPlayers.add(player.getName());
+						}
+					}
+					
 				}
 			});
 			metrics.start();
