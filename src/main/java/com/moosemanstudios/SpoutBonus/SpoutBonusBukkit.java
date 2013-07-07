@@ -32,8 +32,8 @@ public class SpoutBonusBukkit extends JavaPlugin {
 	Boolean itemMode = false;					// item for bonus
 	int itemAmount;								// item bonus amount
 	int itemType;								// item type for bonus
-	Boolean vaultFound = false;					// if vault is found on the system
-	Boolean economyFound = false;				// if economy plugin is found
+	boolean vaultFound = false;					// if vault is found on the system
+	boolean economyFound = false;				// if economy plugin is found
 	public Set<String> spoutPlayers = new HashSet<String>();
 	
 	// vault stuff
