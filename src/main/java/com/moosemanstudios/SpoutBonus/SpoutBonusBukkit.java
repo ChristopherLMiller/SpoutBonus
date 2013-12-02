@@ -16,10 +16,8 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
-
-import com.moosemanstudios.SpoutBonus.Metrics.Graph;
-
-
+import org.mcstats.Metrics;
+import org.mcstats.Metrics.Graph;
 
 public class SpoutBonusBukkit extends JavaPlugin {
 	Logger log = Logger.getLogger("minecraft");	// console
